@@ -23,9 +23,27 @@ async function start() {
 		client_email: MONEY_MGR_EMAIL!,
 		private_key: MONEY_MGR_PRIVATE_KEY!.replace(/\\n/gm, '\n'),
 	})
+	await doc.loadInfo()
+	const sheet = doc.sheetsByIndex[0]
 	bot.start(ctx => ctx.reply('Welcome'))
 	bot.on('text', async ctx => {
 		console.info(ctx.message.text)
+
+		const r =
+			/(?<date>\w+)\s+(?<type>\w+)\s+(?<category>\w+)\s+(?<amount>\d+)\s+(?<description>\w+)/.exec(
+				ctx.message.text
+			)
+
+		if (r == null) ctx.reply('Incorrect text! Please, try again :)')
+		else {
+			await sheet.addRow({
+				date: r?.groups?.date!,
+				type: r?.groups?.type!,
+				category: r?.groups?.category!,
+				amount: r?.groups?.amount!,
+				description: r?.groups?.description!,
+			})
+		}
 	})
 
 	// bot.help(ctx => ctx.reply('Send me a sticker'))
