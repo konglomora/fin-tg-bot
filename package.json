@@ -1,0 +1,17 @@
+{
+	"name": "finance-bot-ts",
+	"version": "1.0.0",
+	"main": "index.js",
+	"license": "MIT",
+	"scripts": {
+		"start": "ts-node-dev  --respawn src/app.ts"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"@types/node": "^17.0.2",
+		"telegraf": "^4.5.2",
+		"ts-node": "^10.4.0",
+		"ts-node-dev": "^1.1.8",
+		"typescript": "^4.5.4"
+	}
+}
